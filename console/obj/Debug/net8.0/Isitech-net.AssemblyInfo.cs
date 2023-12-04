@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Isitech-net")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f34a6f4dd9574236627ace52e94c9c53486efc37")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b7e24d7d3269e260e679b295b708bc66157ceaf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Isitech-net")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Isitech-net")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
