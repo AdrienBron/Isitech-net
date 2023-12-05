@@ -11,10 +11,6 @@ public class AppDbContext : DbContext
         Console.WriteLine("ok");
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        //modelBuilder
-    }
 
     public DbSet<Book> Books { get; set; }
     //public DbSet<WeatherForecast> WeatherForecasts { get; set; }
