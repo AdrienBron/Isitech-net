@@ -1,7 +1,7 @@
 namespace WEBAPI.Models.DTOs
 {
 
-    public class BookUpdateDTO
+    public class BookUpdateDTO : BaseModel
     {
         public string? Title { get; set; }
         public string? Author { get; set; }

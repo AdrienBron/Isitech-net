@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WEBAPI.Models.DTOs;
 using WEBAPI.Models;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore.Storage;
 namespace WEBAPI.Controllers;
 
 [ApiController]
@@ -9,15 +11,18 @@ namespace WEBAPI.Controllers;
 public class BookController : ControllerBase
 {
     private readonly AppDbContext _context; //création d'un _context d'AppDbContext vide
-	private readonly BookUpdateDTO _mapper;
-    public BookController(AppDbContext context, BookUpdateDTO mapper)
+    private readonly IMapper _mapper;
+    public BookController(AppDbContext context, IMapper mapper)
     {
-        _context = context; //assignation du context
+        var config = new MapperConfiguration(cfg => cfg.CreateMap<BookUpdateDTO, Book>());
+        mapper = config.CreateMapper();
         _mapper = mapper;
+        _context = context; //assignation du context
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Book>> Get(){
+    public async Task<IEnumerable<Book>> Get()
+    {
         return await _context.Books.ToListAsync();  //return une lite des books du context
     }
 
@@ -30,13 +35,11 @@ public class BookController : ControllerBase
         {
             return NotFound();
         }
-
         return book;
     }
-
     // POST: api/Book
     // BODY: Book (JSON)
-    [HttpPost("Post",Name = nameof(PostBook))]
+    [HttpPost("Post", Name = nameof(PostBook))]
     [ProducesResponseType(201, Type = typeof(Book))]
     [ProducesResponseType(400)]
     public async Task<ActionResult<Book>> PostBook([FromBody] Book book)
@@ -68,51 +71,48 @@ public class BookController : ControllerBase
     }
 
     // TODO: PUT: api/Book/[id] creer la route qui permet de mettre a jour un livre existant
-    [HttpPut("Put/{id},Title,Author,Genre,Price,PublishDate,Description,Remarks", Name = nameof(PutBook))]
-    public async Task<ActionResult<Book>> PutBook(int id, string? Title, string? Author, string? Genre, decimal Price, DateTime PublishDate, string? Description, string? Remarks)
-    {
-        var book = await _context.Books.FindAsync(id);
-        
-        // we check if the parameter is null
-        if (book == null)
+    /*     [HttpPut("Put/{id},Title,Author,Genre,Price,PublishDate,Description,Remarks", Name = nameof(PutBook))]
+        public async Task<ActionResult<Book>> PutBook(int id, string? Title, string? Author, string? Genre, decimal Price, DateTime PublishDate, string? Description, string? Remarks)
         {
-            return BadRequest();
-        }
-        // we check if the book already exists
-        Book? addedBook = await _context.Books.FirstOrDefaultAsync(b => b.Title == book.Title);
-        if (addedBook == null)
-        {
-            return BadRequest();
-        }
-        Book newbooks=book;
-        if (Title!=null)newbooks.Title=Title;
-        if (Author!=null)newbooks.Author=Author;
-        if (Genre!=null)newbooks.Genre=Genre;
-        if (Price!=null)newbooks.Price=Price;
-        if (PublishDate!=null)newbooks.PublishDate=PublishDate;
-        if (Description!=null)newbooks.Description=Description;
-        if (Remarks!=null)newbooks.Remarks=Remarks;
-        await _context.SaveChangesAsync();
-        
-        return NoContent();
-    } 
+            var book = await _context.Books.FindAsync(id);
+
+            // we check if the parameter is null
+            if (book == null)
+            {
+                return BadRequest();
+            }
+            // we check if the book already exists
+            Book? addedBook = await _context.Books.FirstOrDefaultAsync(b => b.Title == book.Title);
+            if (addedBook == null)
+            {
+                return BadRequest();
+            }
+            Book newbooks=book;
+            if (Title!=null)newbooks.Title=Title;
+            if (Author!=null)newbooks.Author=Author;
+            if (Genre!=null)newbooks.Genre=Genre;
+            if (Price!=null)newbooks.Price=Price;
+            if (PublishDate!=null)newbooks.PublishDate=PublishDate;
+            if (Description!=null)newbooks.Description=Description;
+            if (Remarks!=null)newbooks.Remarks=Remarks;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }  */
 
     // TODO: PUT: api/Book/[id] creer la route qui permet de mettre a jour un livre existant
     // TODO: utilisez des annotations pour valider les donnees entrantes avec ModelState
     // TODO: utilisez le package AutoMapper pour mapper les donnees de BookUpdateDTO vers Book
     [HttpPut("{id}")]
-    public async Task<ActionResult<BookUpdateDTO>> PutBook(Guid id, BookUpdateDTO bookData)
+    public async Task<ActionResult<Book>> PutBook(int id, [FromBody] BookUpdateDTO bookData)
     {
-        var selectedBook = await _context.Books.FindAsync(id);
 
-        if (selectedBook == null)
+        var book = await _context.Books.FindAsync(id);
+        if (book == null)
         {
-            return NotFound();
+            return BadRequest();
         }
-
-        selectedBook.Title = bookData.Title;
-
-        _context.Entry(bookData).State = EntityState.Modified;
+        book.Title = bookData.Title;
         await _context.SaveChangesAsync();
         return NoContent();
     }

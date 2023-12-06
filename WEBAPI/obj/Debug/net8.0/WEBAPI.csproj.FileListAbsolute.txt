@@ -127,3 +127,4 @@ C:\Users\adrie\Desktop\Isitech\Isitech-net\WEBAPI\bin\Debug\net8.0\runtimes\win-
 C:\Users\adrie\Desktop\Isitech\Isitech-net\WEBAPI\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\adrie\Desktop\Isitech\Isitech-net\WEBAPI\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\adrie\Desktop\Isitech\Isitech-net\WEBAPI\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\adrie\Desktop\Isitech\Isitech-net\WEBAPI\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
