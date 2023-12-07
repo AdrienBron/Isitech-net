@@ -1,5 +1,4 @@
 namespace WEBAPI.Models;
-using System.ComponentModel.DataAnnotations;
 
 public class Book : BaseModel
 {

@@ -74,6 +74,25 @@ public class AppDbContext : DbContext
                 Price = 50,
                 PublishDate = new DateTime(2017, 10, 01)
             });
+        modelBuilder.Entity<Book>().HasData(
+            new Client
+            {
+                Id = 1,
+                FirstName = "Professional1",
+                LastName = "Christian Nagel",
+                Identifiant = "test1",
+                Password = "Software1",
+                Key = "50fdgdsfgrgsgrggefsegfdh"
+            },
+            new Client
+            {
+                Id = 2,
+                FirstName = "Professional2",
+                LastName = "Christian Nagel",
+                Identifiant = "test2",
+                Password = "Software2",
+                Key = "50sdusfhufxchvuoxgnrsuo"
+            });
     }
 
     public DbSet<Book> Books { get; set; }
