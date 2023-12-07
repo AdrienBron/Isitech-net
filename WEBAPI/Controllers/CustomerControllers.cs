@@ -5,10 +5,10 @@ namespace WEBAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")] //Route par default
-public class CLientController : ControllerBase
+public class CustomerController : ControllerBase
 {
     private readonly AppDbContext _context; //création d'un _context d'AppDbContext vide
-    public CLientController(AppDbContext context)
+    public CustomerController(AppDbContext context)
     {
         _context = context; //assignation du context
     }
