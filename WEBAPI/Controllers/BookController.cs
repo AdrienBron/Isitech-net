@@ -106,15 +106,23 @@ public class BookController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult<Book>> PutBook(int id, [FromBody] BookUpdateDTO bookData)
     {
-
         var book = await _context.Books.FindAsync(id);
         if (book == null)
         {
             return BadRequest();
         }
-        book.Title = bookData.Title;
+        if(!ModelState.IsValid){
+            return BadRequest();
+        }
+
+        if (bookData.Title!="string") book.Title = bookData.Title;
+        if (bookData.Author!="string")book.Author = bookData.Author;
+        if (bookData.Genre!="string")book.Genre = bookData.Genre;
+        if (bookData.Price!=0)book.Price = bookData.Price;
+        if (bookData.Description!="string")book.Description = bookData.Description;
+        if (bookData.Remarks!="string")book.Remarks = bookData.Remarks;
         await _context.SaveChangesAsync();
-        return NoContent();
+        return book;
     }
 
     // TODO: DELETE: api/Book/[id] creer la route qui permet de supprimer un livre existant

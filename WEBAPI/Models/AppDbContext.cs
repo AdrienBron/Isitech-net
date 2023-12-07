@@ -2,13 +2,14 @@ using Microsoft.EntityFrameworkCore;
 namespace WEBAPI.Models;
 public class AppDbContext : DbContext
 { 
-    private const string ConnectionString ="Filename=C:/sqlite/BookDb.db"; //@"Server=localhost:5059;Database=BookDb;Trusted_Connection=True;"
+    //private const string ConnectionString ="Filename=C:/sqlite/BookDb.db"; //@"Server=localhost:5059;Database=BookDb;Trusted_Connection=True;"
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        //var currentFolder = Directory.GetCurrentDirectory();
-        optionsBuilder.UseSqlite(ConnectionString); //"Filename=C:/sqlite/BookDb.db"
-        Console.WriteLine("ok");
+        var currentDir = Directory.GetCurrentDirectory();
+        var dbPath = Path.Combine(currentDir, "BookDB.db");
+        Console.WriteLine($"using db at {dbPath}");
+        optionsBuilder.UseSqlite($"Filename={dbPath}");
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
