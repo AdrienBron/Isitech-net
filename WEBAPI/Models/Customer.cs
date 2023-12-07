@@ -1,6 +1,6 @@
 namespace WEBAPI.Models;
 
-public class Client : BaseModel
+public class Customer : BaseModel
 {
     public int Id { get; set; }
     public string FirstName { get; set; } = String.Empty;

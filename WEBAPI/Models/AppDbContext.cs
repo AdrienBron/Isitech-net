@@ -7,7 +7,7 @@ public class AppDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var currentDir = Directory.GetCurrentDirectory();
-        var dbPath = Path.Combine(currentDir, "BookDB.db");
+        var dbPath = Path.Combine(currentDir, "DB.db");
         Console.WriteLine($"using db at {dbPath}");
         optionsBuilder.UseSqlite($"Filename={dbPath}");
     }
@@ -74,8 +74,8 @@ public class AppDbContext : DbContext
                 Price = 50,
                 PublishDate = new DateTime(2017, 10, 01)
             });
-        modelBuilder.Entity<Book>().HasData(
-            new Client
+        modelBuilder.Entity<Customer>().HasData(
+            new Customer
             {
                 Id = 1,
                 FirstName = "Professional1",
@@ -84,7 +84,7 @@ public class AppDbContext : DbContext
                 Password = "Software1",
                 Key = "50fdgdsfgrgsgrggefsegfdh"
             },
-            new Client
+            new Customer
             {
                 Id = 2,
                 FirstName = "Professional2",
@@ -96,5 +96,6 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Book> Books { get; set; }
+    public DbSet<Customer> Customers { get; set; }
     //public DbSet<WeatherForecast> WeatherForecasts { get; set; }
 }
